@@ -27,6 +27,6 @@ const debouncedSearch = debounce(event =>{
             setTerm(e.target.value);
             debouncedSearch(e);
           }}
-        />
+        /> 
   )
 }

@@ -4,6 +4,8 @@ import { Link, NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import { setDarkMode } from "./uiSlice";
 import { useFetchBasketQuery } from "../features/basket/basketApi";
+import UserMenu from "./UserMenu";
+import { useUserInfoQuery } from "../features/account/accountApi";
 
 const midLink =[
   {title:'catalog',path:'/catalog'},
@@ -22,6 +24,7 @@ const navStyles={color:'inherit',typography:'h6', textDecoration:'none','&:hover
 
 
 export default function NavBar() {
+  const{data: user} = useUserInfoQuery();
   const {isLoading, darkMode} = useAppSelector(state=>state.ui);
   const dispatch = useAppDispatch();
   const{data:basket}= useFetchBasketQuery();
@@ -49,7 +52,7 @@ export default function NavBar() {
         
        ) )}
         </List>
-        <Box display='flex' alignItems={"center"}>
+        <Box display='flex' alignItems='center'>
       <IconButton component={Link} to='/basket' size="large"sx={{color:'inherit'}}>
           <Badge badgeContent={itemCount} color="secondary">
             <ShoppingCart/>
@@ -57,8 +60,11 @@ export default function NavBar() {
           </Badge>
 
         </IconButton>
-        <List sx={{display:'flex'}}>
-        {rightLink.map(({title,path})=>(
+          {user ? (
+            <UserMenu user ={user} />
+          ):(
+             <List sx={{display:'flex'}}>
+        {rightLink.map(({title, path})=>(
         <ListItem
         component={NavLink}
         to={path}
@@ -70,12 +76,9 @@ export default function NavBar() {
         
        ) )}
         </List>
-          
-        </Box>
-        
-       
-        
 
+          )}
+          </Box>
         </Toolbar>
         {isLoading &&(
           <Box sx={{sidth:'100%'}}>
