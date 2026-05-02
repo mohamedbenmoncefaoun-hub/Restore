@@ -1,43 +1,144 @@
-
-import {Grid2,Typography} from "@mui/material";
+import { Grid2, Typography, Box, Button, Drawer, Stack, Divider } from "@mui/material";
 import ProductList from "./ProductList";
-import { useFetchProductsQuery } from "./catalogApi";
+import { useFetchProductsQuery, useFetchFiltersQuery } from "./catalogApi";
 import Filters from "./Filters";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import AppPagination from "../../shared/components/AppPagination";
 import { setPageNumber } from "./catalogSlice";
-import { useFetchFiltersQuery } from "./catalogApi";
-
-
+import { useState } from "react";
+import TuneIcon from '@mui/icons-material/Tune';
 
 export default function Catalog() {
   const productParams = useAppSelector(state => state.catalog);
-  const{data,isLoading}=useFetchProductsQuery(productParams);
-  const{data: filtersData ,isLoading: filtersLoading}=useFetchFiltersQuery();
+  const { data, isLoading } = useFetchProductsQuery(productParams);
+  const { data: filtersData, isLoading: filtersLoading } = useFetchFiltersQuery();
   const dispatch = useAppDispatch();
-  if (isLoading || !data || filtersLoading || !filtersData) return <div>Loading...</div>
-  return (
-    <Grid2 container spacing={4}>
-      <Grid2 size={3}>
-        <Filters filtersData={filtersData} />
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
+  if (isLoading || !data || filtersLoading || !filtersData) return <div>Loading...</div>;
+
+  return (
+    <Box sx={{ px: { xs: 2, sm: 3, md: 4 }, py: 2 }}> {/* Increased xs padding for better single-column framing */}
+      
+      {/* MOBILE ACTION BAR */}
+      <Box sx={{ 
+        display: { xs: "flex", md: "none" }, 
+        justifyContent: "space-between", 
+        alignItems: "center",
+        mb: 2,
+        px: 1,
+        py: 1.5,
+        position: 'sticky',
+        top: 0, 
+        zIndex: 10,
+        bgcolor: 'background.paper',
+        borderBottom: '1px solid',
+        borderColor: 'divider'
+      }}>
+        <Typography variant="body2" fontWeight="600">
+          {data.items.length} Products
+        </Typography>
+        <Button 
+          variant="text" 
+          size="small"
+          startIcon={<TuneIcon />}
+          onClick={() => setMobileFiltersOpen(true)}
+          sx={{ color: 'text.primary', fontWeight: 'bold' }}
+        >
+          Filters
+        </Button>
+      </Box>
+
+      <Grid2 container spacing={{ xs: 3, sm: 2, md: 4 }}> {/* Increased xs spacing for vertical breathing room */}
+        {/* DESKTOP SIDEBAR FILTERS */}
+        <Grid2
+          size={{ md: 3 }}
+          sx={{ display: { xs: "none", md: "block" } }}
+        >
+          <Box sx={{ position: 'sticky', top: 20 }}>
+            <Filters filtersData={filtersData} />
+          </Box>
+        </Grid2>
+
+        {/* PRODUCTS SECTION */}
+        <Grid2 size={{ xs: 12, md: 9 }}>
+          {data.items && data.items.length > 0 ? (
+            <>
+              <Box sx={{ mb: 4 }}>
+                {/* IMPORTANT: You must ensure that inside ProductList, 
+                  the Grid2 items are set to size={{ xs: 12 }} 
+                */}
+                <ProductList products={data.items} />
+              </Box>
+              
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+                <AppPagination
+                  metadata={data.pagination}
+                  onPageChange={(page: number) => {
+                    dispatch(setPageNumber(page));
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                />
+              </Box>
+            </>
+          ) : (
+            <Stack spacing={2} alignItems="center" sx={{ mt: 10 }}>
+              <Typography variant="h6">No results found</Typography>
+              <Button variant="outlined" onClick={() => window.location.reload()}>
+                Reset Filters
+              </Button>
+            </Stack>
+          )}
+        </Grid2>
       </Grid2>
-      <Grid2 size={9}>
-        {data.items && data.items.length>0 ?(
-        <>
-            <ProductList products={data.items}/>
-         <AppPagination 
-         metadata={data.pagination}
-         onPageChange={(page: number)=>{
-           dispatch(setPageNumber(page));
-           window.scrollTo({top: 0 , behavior: 'smooth'})
-         }}
-         />
-        </>
-        ):(
-          <Typography variant="h5">There are no result for this filter</Typography>
-        )}
-      </Grid2>
-    </Grid2>
-  )
+
+      {/* MOBILE BOTTOM SHEET (Filters) */}
+      <Drawer
+        anchor="bottom"
+        open={mobileFiltersOpen}
+        onClose={() => setMobileFiltersOpen(false)}
+        PaperProps={{
+          sx: { 
+            borderTopLeftRadius: 24, 
+            borderTopRightRadius: 24,
+            maxHeight: '90vh'
+          }
+        }}
+      >
+        <Box sx={{ p: 2 }}>
+          <Box sx={{ 
+            width: 40, height: 5, bgcolor: 'grey.300', 
+            borderRadius: 10, mx: 'auto', mb: 2 
+          }} />
+          
+          <Typography variant="h6" align="center" sx={{ mb: 2, fontWeight: 'bold' }}>
+            Filters
+          </Typography>
+          
+          <Divider sx={{ mb: 3 }} />
+          
+          <Box sx={{ overflowY: 'auto', maxHeight: '60vh', px: 1 }}>
+            <Filters filtersData={filtersData} />
+          </Box>
+
+          <Button 
+            fullWidth 
+            variant="contained" 
+            size="large" 
+            onClick={() => setMobileFiltersOpen(false)}
+            sx={{ 
+                mt: 3, 
+                mb: 1, 
+                borderRadius: 3, 
+                py: 1.5,
+                textTransform: 'none',
+                fontSize: '1.1rem'
+            }}
+          >
+            Show {data.items.length} Results
+          </Button>
+        </Box>
+      </Drawer>
+    </Box>
+  );
 }

@@ -5,7 +5,7 @@ import { router } from "../models/route/Routes";
 //import type { ErrorResponse } from "react-router-dom";
 
 const customBaseQuery = fetchBaseQuery({
-    baseUrl:'https://localhost:5001/api',
+    baseUrl:import.meta.env.VITE_API_URL,
     credentials:'include'
 });
 

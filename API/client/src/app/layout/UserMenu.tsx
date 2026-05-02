@@ -31,7 +31,8 @@ export default function UserMenu({user}: Props) {
         size='large'
         sx={{fontSize:'1.1rem'}}
       >
-     {user.email}
+       {user.email}
+      
       </Button>
       <Menu
         id="fade-menu"
