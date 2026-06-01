@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Person , History, Logout } from "@mui/icons-material";
 import { useLogoutMutation } from "../features/account/accountApi";
 import type { User } from "../models/user";
+import { Link as RouterLink } from 'react-router-dom';
 
 
 type Props ={
@@ -52,12 +53,12 @@ export default function UserMenu({user}: Props) {
         </ListItemIcon>
         <ListItemText>My Profile</ListItemText>
         </MenuItem>
-        <MenuItem>
-        <ListItemIcon>
-            <History />
-        </ListItemIcon>
-        <ListItemText>My orders</ListItemText>
-        </MenuItem>
+        <MenuItem component={RouterLink} to="/orders">
+  <ListItemIcon>
+    <History />
+  </ListItemIcon>
+  <ListItemText primary="My orders" />
+</MenuItem>
         <Divider />
         <MenuItem onClick={logout}>
         <ListItemIcon>

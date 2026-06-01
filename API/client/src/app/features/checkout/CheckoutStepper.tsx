@@ -10,11 +10,15 @@ import { useBasket } from "../../../lib/hooks/useBasket";
 import { currencyFormat } from "../../../lib/util";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useCreateOrderMutation } from "../Orders/OrderApi";
 const steps = ['Address', 'Payment','Review'];
 export default function CheckoutStepper() {
     const [activeStep, setActiveStep] = useState(0);
    // const{data:{name, ...restAddress}={}as Address}=useFetchAddressQuery();
-const { data } = useFetchAddressQuery();
+const [createOrder]=useCreateOrderMutation();
+
+
+   const { data } = useFetchAddressQuery();
 const { name, ...restAddress } = data ?? ({} as Address);
 const [updateAddress] = useUpdateUserAddressMutation();
 const[savedAddressChecked, setSavedAddressChecked]=useState(false);
@@ -55,6 +59,9 @@ const navigate = useNavigate();
     try {
         if(!confirmationToken||!basket?.clientSecret) 
             throw new Error('Unable to process payment');
+           
+         const orderModel = await createOrderModel();
+         const orderResult = await createOrder(orderModel);
 
         const paymentResult = await stripe?.confirmPayment({
             clientSecret: basket.clientSecret,
@@ -64,7 +71,7 @@ const navigate = useNavigate();
             }
         });
         if(paymentResult?.paymentIntent?.status === 'succeeded'){
-        navigate('/checkout/success');
+        navigate('/checkout/success',{state: orderResult});
         clearBasket();
         
         } else if(paymentResult?.error) {
@@ -82,6 +89,14 @@ const navigate = useNavigate();
     }
     
     
+    }
+
+    const createOrderModel = async ()=>{
+
+        const shippingAddress = await getStripeAddress();
+        const paymentSummary = confirmationToken?.payment_method_preview.card;
+        if(!shippingAddress || !paymentSummary) throw Error('Problem creating order');
+         return {shippingAddress, paymentSummary}
     }
     const getStripeAddress= async () =>{
         const addressElement = elements?.getElement('address');
