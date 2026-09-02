@@ -28,7 +28,7 @@ const navStyles = {
   typography: "h6",
   textDecoration: "none",
   "&:hover": { color: "grey.500" },
-  "&.active": { color: "#baecf9" },
+  "&.active": { color: "#a1b55f" },
 };
 
 export default function NavBar() {
@@ -47,7 +47,7 @@ export default function NavBar() {
   // محتوى القائمة الجانبية للموبايل
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', width: 250 }}>
-      <Typography variant="h6" sx={{ my: 2 }}>RE-STORE</Typography>
+      <Typography variant="h6" sx={{ my: 2 }}>JAMEL'S</Typography>
       <Divider />
       <List>
         {midLinks.map(({ title, path }) => (
@@ -82,11 +82,9 @@ export default function NavBar() {
             </IconButton>
 
             <Typography component={NavLink} to="/" sx={navStyles} variant="h6">
-              RE-STORE
+              JAMEL'S
             </Typography>
-            <IconButton onClick={() => dispatch(setDarkMode())}>
-              {darkMode ? <DarkMode /> : <LightMode sx={{ color: "yellow" }} />}
-            </IconButton>
+           
           </Box>
 
           {/* روابط الوسط - تختفي في الموبايل */}

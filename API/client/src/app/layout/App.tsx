@@ -28,12 +28,12 @@ function App() {
     sx={{
       minHeight:'100vh',
       background: darkMode 
-      ? 'radial-gradient( #2d2a2a)'
-      :'radial-gradient( #383a3b)',
+      ? 'radial-gradient(circle, #2d2c2a 0%, #1a1918 100%);'
+      :'radial-gradient(circle, #2d2c2a 0%, #1a1918 100%);',
       py: 6
     }}
     >
- <Container maxWidth='xl' sx={{mt: 8}}>
+ <Container maxWidth='xl' sx={{mt: 1}}>
 < Outlet />
  </Container>
 

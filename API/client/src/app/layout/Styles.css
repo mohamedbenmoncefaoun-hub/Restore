@@ -1,0 +1,516 @@
+/* Fonts (Ensure these are imported in your global layout/HTML) */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,600&display=swap');
+
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  /* Smooth fade-in up animation for the whole container */
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-subtitle {
+  color: #d4a03c;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-size: clamp(11px, 2vw, 14px) !important;
+  margin-bottom: 20px !important;
+  font-weight: 500;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 0.3s;
+}
+
+.hero-title {
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: clamp(3.5rem, 12vw, 8.5rem) !important;
+  font-weight: 700 !important;
+  line-height: 0.85 !important;
+  margin: 0 !important;
+  color: #f5f5f5;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  text-shadow: 0 4px 20px rgba(0,0,0,.4);
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 0.5s;
+}
+
+.hero-script {
+  font-family: "Cormorant Garamond", serif !important;
+  font-style: italic;
+  font-size: clamp(2.5rem, 9vw, 6rem) !important;
+  font-weight: 500 !important;
+  color: #d4a03c;
+  margin-top: -10px !important;
+  margin-bottom: 40px !important;
+  text-shadow: 0 4px 15px rgba(0,0,0,.4);
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 0.7s;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.9s;
+}
+
+/* Base Button Styles overriding MUI defaults safely */
+.btn-primary,
+.btn-outline {
+  padding: 14px 36px !important;
+  border-radius: 0px !important; /* Sharp corners look premium for barbershops */
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  transition: all .4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Premium Gold Button */
+.btn-primary {
+  background: #d4a03c !important;
+  color: #111 !important;
+  border: 1px solid #d4a03c !important;
+}
+
+.btn-primary:hover {
+  background: transparent !important;
+  color: #d4a03c !important;
+  box-shadow: 0 0 20px rgba(212, 160, 60, 0.4);
+}
+
+/* Outline Button */
+.btn-outline {
+  background: transparent !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,.3) !important;
+}
+
+.btn-outline:hover {
+  border-color: #fff !important;
+  background: #fff !important;
+  color: #111 !important;
+}
+
+/* --- KEYFRAMES FOR PRETTY ANIMATIONS --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* --- ABOUT SECTION TYPOGRAPHY --- */
+
+.about-tagline {
+  color: #d4a03c;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px !important;
+  margin-bottom: 16px !important;
+}
+
+.about-title {
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: clamp(2.2rem, 5vw, 3.8rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  color: #f5f5f5;
+  margin-bottom: 24px !important;
+}
+
+.about-title .italic-gold {
+  font-family: "Cormorant Garamond", serif !important;
+  font-style: italic;
+  color: #d4a03c;
+  font-weight: 500;
+}
+
+.about-description {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.7;
+  max-width: 500px;
+  margin-bottom: 40px !important;
+}
+
+/* --- STATS COUNTER GRID --- */
+
+.stats-container {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  position: relative;
+  min-width: 100px;
+}
+
+/* Vertical separator line between stats on desktop screens */
+@media (min-width: 600px) {
+  .stat-item.divider {
+    padding-left: 30px;
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}
+
+.stat-number {
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
+  font-weight: 700 !important;
+  color: #d4a03c;
+  line-height: 1 !important;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* --- SCROLL REVEAL ANIMATIONS --- */
+
+/* Base container setup for reveal elements */
+.animate-on-scroll {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-duration: 1.2s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slide in from left for image */
+.left-reveal {
+  transform: translateX(-50px);
+  animation-name: slideInLeft;
+}
+
+/* Slide up and fade for text content */
+.right-reveal {
+  transform: translateY(40px);
+  animation-name: slideInUp;
+  animation-delay: 0.2s; /* Subtle staggering effect */
+}
+
+@keyframes slideInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* --- HEADER TYPOGRAPHY --- */
+
+.services-tagline {
+  color: #d4a03c;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px !important;
+  margin-bottom: 12px !important;
+}
+
+.services-main-title {
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: clamp(2.2rem, 5vw, 3.8rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: #f5f5f5;
+  margin-bottom: 16px !important;
+}
+
+.services-main-title .italic-gold {
+  font-family: "Cormorant Garamond", serif !important;
+  font-style: italic;
+  color: #d4a03c;
+  font-weight: 500;
+}
+
+.services-desc {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* --- THE PREMIUM SERVICE CARD --- */
+
+.service-card {
+  position: relative;
+  height: 420px;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* Base Background Image */
+.service-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.service-card:hover .service-card-image {
+  transform: scale(1.08); /* Sophisticated subtle zoom */
+}
+
+/* Default visible content details */
+.service-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  z-index: 2;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.service-title {
+  font-family: "Cormorant Garamond", serif !important;
+  font-weight: 600 !important;
+  color: #fff;
+  font-size: 1.5rem !important;
+}
+
+.service-price {
+  font-family: "Cormorant Garamond", serif;
+  color: #d4a03c;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.service-duration {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --- HOVER EXPANSION OVERLAY --- */
+
+.service-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(11, 11, 11, 0.95); /* Dark solid elegant mask */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  z-index: 3;
+  
+  /* Start invisible, shifted downwards slightly */
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reveal transition trigger */
+.service-card:hover .service-card-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide original summary layout on hover */
+.service-card:hover .service-card-content {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.overlay-title {
+  font-family: "Cormorant Garamond", serif !important;
+  font-weight: 600 !important;
+  color: #fff;
+  font-size: 1.8rem !important;
+  margin-bottom: 5px !important;
+}
+
+.overlay-price {
+  font-family: "Cormorant Garamond", serif;
+  color: #d4a03c;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.overlay-desc {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 25px !important;
+}
+
+/* Smaller CTA Button style inside Cards */
+.btn-primary-sm {
+  background-color: #d4a03c !important;
+  color: #111 !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  letter-spacing: 2px !important;
+  padding: 10px 24px !important;
+  border-radius: 0px !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-primary-sm:hover {
+  background-color: transparent !important;
+  color: #d4a03c !important;
+  outline: 1px solid #d4a03c;
+}
+/* --- HEADER TYPOGRAPHY --- */
+
+.reviews-tagline {
+  color: #d4a03c;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px !important;
+  margin-bottom: 12px !important;
+}
+
+.reviews-main-title {
+  font-family: "Cormorant Garamond", serif !important;
+  font-size: clamp(2.2rem, 5vw, 3.8rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: #f5f5f5;
+  margin-bottom: 20px !important;
+}
+
+.reviews-main-title .italic-gold {
+  font-family: "Cormorant Garamond", serif !important;
+  font-style: italic;
+  color: #d4a03c;
+  font-weight: 500;
+}
+
+/* --- GOOGLE SCORE BANNER --- */
+
+.google-summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 160, 60, 0.2);
+  padding: 10px 24px;
+  border-radius: 4px;
+  flex-wrap: wrap;
+}
+
+.google-rating {
+  font-weight: 700;
+  color: #fff;
+  font-size: 18px;
+}
+
+.stars-row {
+  color: #d4a03c; /* Gold color for stars */
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.google-count {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+/* --- PREMIUM REVIEW CARD --- */
+
+.review-card {
+  position: relative;
+  background-color: #0f0f0f; /* Slightly lighter tile overlay contrast */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 35px 30px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+/* Hover feedback animation mechanics */
+.review-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212, 160, 60, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+.review-author {
+  font-weight: 600 !important;
+  color: #f5f5f5;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+}
+
+.review-date {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.card-stars {
+  font-size: 15px;
+}
+
+.review-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* Elegant, subtle Google 'G' watermark in the background card edge */
+.google-watermark {
+  position: absolute;
+  bottom: -15px;
+  right: 15px;
+  font-family: 'Product Sans', sans-serif, system-ui;
+  font-size: 90px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.4s ease;
+}
+
+.review-card:hover .google-watermark {
+  color: rgba(212, 160, 60, 0.04); /* Glows faint gold when card is focused */
+}
